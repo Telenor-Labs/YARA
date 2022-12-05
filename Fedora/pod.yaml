@@ -1,0 +1,102 @@
+# Example of one containers in one pod.
+# 
+
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: rsca-docroot
+  labels:
+    app: rsca
+data:
+  index.html: |
+    Hello World!
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: rsca
+  labels:
+    app: rsca
+spec:
+  selector:
+    app: rsca
+#  ports:
+#  - name: opc-ua
+#    port: 4841
+#  - name: frontend
+#    port: 3000
+#  - name: backend
+#    port: 8000
+
+---
+
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: rsca
+  labels:
+    app: rsca
+spec:
+  selector:
+    matchLabels:
+      app: rsca
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: rsca
+    spec:
+      containers:
+        - name: server
+          image: danielteigen/5g_remote_car:latest
+
+#          ports:
+#            - containerPort: 4841
+#            - containerPort: 3000
+#            - containerPort: 8000
+
+---
+
+#kind: Route
+#apiVersion: route.openshift.io/v1
+#metadata:
+#  name: opc-ua
+#  labels:
+#    app: rsca
+#spec:
+#  to:
+#    kind: Service
+#    name: rsca
+#  port:
+#    targetPort: opc-ua
+
+#---
+
+# kind: Route
+# apiVersion: route.openshift.io/v1
+# metadata:
+#   name: frontend
+#   labels:
+#     app: rsca
+# spec:
+#   to:
+#     kind: Service
+#     name: rsca
+#   port:
+#     targetPort: frontend
+
+# ---
+
+# kind: Route
+# apiVersion: route.openshift.io/v1
+# metadata:
+#   name: backend
+#   labels:
+#     app: rsca
+# spec:
+#   to:
+#     kind: Service
+#     name: rsca
+#   port:
+#     targetPort: backend
