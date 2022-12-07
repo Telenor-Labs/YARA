@@ -12,22 +12,22 @@ data:
     Hello World!
 ---
 
-kind: Service
-apiVersion: v1
-metadata:
-  name: rsca
-  labels:
-    app: rsca
-spec:
-  selector:
-    app: rsca
-#  ports:
-#  - name: opc-ua
-#    port: 4841
-#  - name: frontend
-#    port: 3000
-#  - name: backend
-#    port: 8000
+# kind: Service
+# apiVersion: v1
+# metadata:
+#   name: rsca
+#   labels:
+#     app: rsca
+# spec:
+#   selector:
+#     app: rsca
+  # ports:
+  # - name: opc-ua
+  #   port: 4841
+  # - name: frontend
+  #   port: 3000
+  # - name: backend
+  #   port: 8000
 
 ---
 
