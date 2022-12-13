@@ -69,7 +69,6 @@ int main(int argc, char *const argv[])
                                 break ;
                         default:
                                 std::cout<<"[Klient] ingen argumenter port: "<<PORT<<"ip: "<<addr<<endl;
-
                 }
         }
 
@@ -104,11 +103,24 @@ int main(int argc, char *const argv[])
                 return -1;
         }
 
-        if (connect(sock, (struct sockaddr*)&serv_addr, sizeof(serv_addr)) < 0)
+        while(true)
         {
-                std::cout << ("\n[Client]\t Connection Failed! quiting... \n") << ::endl;
-                return -1;
+                if(connect(sock, (struct sockaddr*)&serv_addr, sizeof(serv_addr)) < 0)
+                {
+                        std::cout << ("\n[Client]\t Connection Failed! Retrying in 5 seconds... \n") << ::endl;
+                }
+                else
+                {
+                        break;
+                }
+                sleep(5);
         }
+
+        //if (connect(sock, (struct sockaddr*)&serv_addr, sizeof(serv_addr)) < 0)
+        //{
+        //        std::cout << ("\n[Client]\t Connection Failed! quiting... \n") << ::endl;
+        //        return -1;
+        //}
         std::cout<<"[Client]\t Connected to: "<<addr<<std::endl;
         std::cout<<"**********************************************************"<<std::endl;
         std::cout<<"**********************************************************"<<std::endl;
