@@ -1,5 +1,4 @@
 FROM registry.fedoraproject.org/fedora:36
-
 #Install some packages 
 
 RUN dnf -y install gcc-c++ 
